@@ -1,7 +1,7 @@
 import request from '../utils/request';
+import { BASE_URL } from '../common/api';
 
-const baseUrl = 'http://localhost:4000';
-const domainUrl = `${baseUrl}/users`;
+const domainUrl = `${BASE_URL}/users`;
 
 export interface IUser {
   login: string;

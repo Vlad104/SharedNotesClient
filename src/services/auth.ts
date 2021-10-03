@@ -1,13 +1,17 @@
 import request from '../utils/request';
 import { IUser } from './users';
+import { BASE_URL } from '../common/api';
 
-const baseUrl = 'http://localhost:4000';
-const domainUrl = `${baseUrl}/auth`;
+const domainUrl = `${BASE_URL}/auth`;
 
 export const login = async (user: IUser) => {
-  return request(`${domainUrl}/login`, 'POST', user);
-};
+  const result = (await request(`${domainUrl}/login`, 'POST', user)) as {
+    accessToken?: string;
+  };
 
-export const check = async () => {
-  return request(`${domainUrl}/check`, 'GET');
+  if (result?.accessToken) {
+    localStorage.setItem('accessToken', result.accessToken);
+  }
+
+  return result;
 };

@@ -3,6 +3,7 @@ export default async function request(url: string, method = 'GET', body?: any) {
     method,
     headers: {
       'Content-Type': 'application/json',
+      Authorization: getAccessToken(),
     },
     mode: 'cors' as RequestMode,
     credentials: 'include' as RequestCredentials,
@@ -30,4 +31,14 @@ export default async function request(url: string, method = 'GET', body?: any) {
   if (contentType.match('text/plain')) {
     return response.text();
   }
+}
+
+function getAccessToken() {
+  const token = localStorage.getItem('accessToken');
+
+  if (!token) {
+    return '';
+  }
+
+  return `Bearer ${token}`;
 }
